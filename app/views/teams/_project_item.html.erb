@@ -1,0 +1,5 @@
+      <%= link_to team_project_path(project) do %>
+      <%= project.title %>
+      <%= link_to("编辑", edit_team_project_path(project.team, project), class: "btn btn-sm btn-success")%>
+      <%= link_to("删除", team_project_path(project.team, project), method: :delete, class: "btn btn-sm btn-danger", data: {confirm: "确定吗"})%>
+  <% end %>

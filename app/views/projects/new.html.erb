@@ -1,4 +1,4 @@
-    <%= simple_form_for @project do |f| %>
+    <%= simple_form_for [@team, @project] do |f| %>
     <%= f.input :title %>
     <br>
     <%= f.submit "Submit", :disable_with => 'Submiting...' %>

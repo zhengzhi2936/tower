@@ -1,39 +1,45 @@
 class ProjectsController < ApplicationController
 
-  def index
-    @projects = Project.all
-  end
-
   def new
+    @team = Team.find(params[:team_id])
     @project = Project.new
   end
 
   def create
+    @team = Team.find(params[:team_id])
     @project = Project.new(project_params)
+    @project.team = @team
+    @project.user = current_user
     if @project.save
-      redirect_to "/"
+      redirect_to team_path(@team)
     else
       render :new
     end
   end
 
   def edit
+    @team = Team.find(params[:team_id])
     @project = Project.find(params[:id])
   end
 
   def update
+    @team = Team.find(params[:team_id])
+    @project = Project.new(project_params)
+    @project.team = @team
+    @project.user = current_user
     @project = Project.find(params[:id])
     if @project.update(project_params)
-      redirect_to "/"
+      redirect_to team_path(@team)
     else
       render :edit
     end
   end
 
   def destroy
+    @team = Team.find(params[:team_id])
     @project = Project.find(params[:id])
     @project.destroy
-    redirect_to "/"
+    redirect_to team_path(@team)
   end
 
 private

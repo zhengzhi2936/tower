@@ -4,7 +4,9 @@ Rails.application.routes.draw do
      registrations: 'users/registrations',
      sessions: 'users/sessions'
    }
+   resources :teams do
+     resources :projects
+   end
+   root 'teams#index'
 
-   resources :projects
-   root 'projects#index'
 end
