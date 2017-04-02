@@ -6,7 +6,9 @@ Rails.application.routes.draw do
    }
    resources :teams do
      resources :projects do
-       resources :todos
+       resources :todos do
+         resources :reviews
+       end
      end
    end
    root 'teams#index'

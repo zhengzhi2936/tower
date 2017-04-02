@@ -1,0 +1,9 @@
+<tr>
+<td> <%= review.id%></td>
+<td>
+  <%= review.content %>
+</td>
+<td> <%= link_to("编辑", edit_team_project_todo_review_path(team, project, todo, review), class: "btn btn-sm btn-success")%>
+<%= link_to("删除", team_project_todo_review_path(team, project, todo, review), method: :delete, class: "btn btn-sm btn-danger", data: {confirm: "确定吗"})%></td>
+<td> <%= todo.created_at%></td>
+</tr>
