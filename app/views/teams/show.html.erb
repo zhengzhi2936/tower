@@ -5,12 +5,13 @@
   <div class="group">
     <%= link_to("创建项目", new_team_project_path(@team), class: "btn btn-danger pull-right") %>
   </div>
-
-  <table class="table table-hover">
+</div>
+  <table class="table">
     <thead>
       <tr>
         <td>#</td>
         <td>项目名称</td>
+        <td>操作选项</td>
         <td>创建时间</td>
       </tr>
     </thead>
@@ -18,4 +19,3 @@
       <%= render :partial => "project_item", :collection => @projects, :as => :project  %>
     </tbody>
   </table>
-</div>

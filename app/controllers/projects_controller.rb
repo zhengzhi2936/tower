@@ -16,6 +16,11 @@ class ProjectsController < ApplicationController
       render :new
     end
   end
+  def show
+    @team = Team.find(params[:team_id])
+    @project = @team.projects.find(params[:id])
+    @todos = @project.todos
+  end
 
   def edit
     @team = Team.find(params[:team_id])

@@ -5,7 +5,9 @@ Rails.application.routes.draw do
      sessions: 'users/sessions'
    }
    resources :teams do
-     resources :projects
+     resources :projects do
+       resources :todos
+     end
    end
    root 'teams#index'
 

@@ -1,1 +1,21 @@
-
+<div class="text-center">
+  <h1><%= @project.title %></h1>
+</div>
+<div class="col-md-12">
+  <div class="group">
+    <%= link_to("创建任务", new_team_project_todo_path(@team, @project), class: "btn btn-danger pull-right") %>
+  </div>
+</div>
+  <table class="table">
+    <thead>
+      <tr>
+        <td>#</td>
+        <td>任务名称</td>
+        <td>操作选项</td>
+        <td>创建时间</td>
+      </tr>
+    </thead>
+    <tbody>
+      <%= render :partial => "todo_item", :collection => @todos, :as => :todo, locals: { team: @team, project: @project }  %>
+    </tbody>
+  </table>

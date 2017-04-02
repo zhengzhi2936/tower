@@ -1,5 +1,27 @@
-<% @teams.each do |team| %>
-<%= link_to team_path(team) do %>
-<%= team.name %>
-<% end %>
-<% end %>
+<div class="col-md-12">
+  <div class="team">
+    <%= link_to("New team", new_team_path, class: "btn btn-primary pull-right") %>
+  </div>
+  <table class="table table-hover">
+    <thead>
+      <tr>
+        <td>#</td>
+        <td>名字</td>
+        <td>操作</td>
+      </tr>
+    </thead>
+    <tbody>
+      <% @teams.each do |team| %>
+        <tr>
+          <td><%= team.id %></td>
+          <td><%= link_to(team.name, team_path(team)) %></td>
+          <td>
+              <%= link_to("Edit", edit_team_path(team), class: "btn btn-sm btn-default")%>
+              <%= link_to("Delete", team_path(team),    class: "btn btn-sm btn-default",
+                          method: :delete, data: { confirm: "Are you sure?" } )%>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
