@@ -21,6 +21,7 @@ class TodosController < ApplicationController
     @todo.project = @project
     @todo.user = current_user
     if @todo.save
+      @todo.aasm_state = "todo_created"
       redirect_to team_project_path(@team, @project)
     else
       render :new
@@ -54,6 +55,45 @@ class TodosController < ApplicationController
       redirect_to team_project_path(@team, @project)
   end
 
+  def receive_todo
+    @team = Team.find(params[:team_id])
+    @project = Project.find(params[:project_id])
+    @todo = Todo.find(params[:id])
+    @todo.receive_todo!
+      redirect_to team_project_path(@team, @project)
+  end
+
+  def finish_todo
+    @team = Team.find(params[:team_id])
+    @project = Project.find(params[:project_id])
+    @todo = Todo.find(params[:id])
+    @todo.finish_todo!
+      redirect_to team_project_path(@team, @project)
+  end
+
+  def reopen_todo
+    @team = Team.find(params[:team_id])
+    @project = Project.find(params[:project_id])
+    @todo = Todo.find(params[:id])
+    @todo.reopen_todo!
+      redirect_to team_project_path(@team, @project)
+  end
+
+  def cancel_todo
+    @team = Team.find(params[:team_id])
+    @project = Project.find(params[:project_id])
+    @todo = Todo.find(params[:id])
+    @todo.cancel_todo!
+      redirect_to team_project_path(@team, @project)
+  end
+
+  def renew_todo
+    @team = Team.find(params[:team_id])
+    @project = Project.find(params[:project_id])
+    @todo = Todo.find(params[:id])
+    @todo.renew_todo!
+      redirect_to team_project_path(@team, @project)
+  end
 private
 
    def todo_params

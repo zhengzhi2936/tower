@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170402073723) do
+ActiveRecord::Schema.define(version: 20170402082244) do
 
   create_table "projects", force: :cascade do |t|
     t.string   "title"
@@ -40,8 +40,10 @@ ActiveRecord::Schema.define(version: 20170402073723) do
     t.integer  "user_id"
     t.string   "title"
     t.text     "description"
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
+    t.datetime "created_at",                           null: false
+    t.datetime "updated_at",                           null: false
+    t.string   "aasm_state",  default: "todo_created"
+    t.index ["aasm_state"], name: "index_todos_on_aasm_state"
   end
 
   create_table "users", force: :cascade do |t|

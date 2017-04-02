@@ -5,6 +5,56 @@
     <% end %>
 </td>
 <td> <%= link_to("编辑", edit_team_project_todo_path(team, project, todo), class: "btn btn-sm btn-success")%>
-<%= link_to("删除", team_project_todo_path(team, project, todo), method: :delete, class: "btn btn-sm btn-danger", data: {confirm: "确定吗"})%></td>
+<%= link_to("删除", team_project_todo_path(team, project, todo), method: :delete, class: "btn btn-sm btn-danger", data: {confirm: "确定吗"})%>
+
+
+  <% case todo.aasm_state %>
+  <% when "todo_created" %>
+    <%= link_to("接受任务",
+                receive_todo_team_project_todo_path(team, project, todo),
+                class: "btn btn-default btn-sm", method: :post) %>
+    <%= link_to("完成任务",
+                finish_todo_team_project_todo_path(team, project, todo),
+                class: "btn btn-default btn-sm", method: :post) %>
+    <%= link_to("取消任务",
+                cancel_todo_team_project_todo_path(team, project, todo),
+                class: "btn btn-default btn-sm", method: :post) %>
+  <% when "received" %>
+  <%= link_to("完成任务",
+              finish_todo_team_project_todo_path(team, project, todo),
+              class: "btn btn-default btn-sm", method: :post) %>
+  <%= link_to("取消任务",
+              cancel_todo_team_project_todo_path(team, project, todo),
+              class: "btn btn-default btn-sm", method: :post) %>
+  <% when "finished" %>
+  <%= link_to("取消任务",
+              cancel_todo_team_project_todo_path(team, project, todo),
+              class: "btn btn-default btn-sm", method: :post) %>
+  <%= link_to("重新领取任务",
+              reopen_todo_team_project_todo_path(team, project, todo),
+              class: "btn btn-default btn-sm", method: :post) %>
+  <% when "todo_canceled" %>
+  <%= link_to("恢复任务",
+              renew_todo_team_project_todo_path(team, project, todo),
+              class: "btn btn-default btn-sm", method: :post) %>
+  <% end %>
+</td>
+<td>
+  <% case todo.aasm_state %>
+  <% when "todo_created" %>
+          新任务
+
+  <% when "received" %>
+          已领取任务
+
+  <% when "finished" %>
+          已完成任务
+
+  <% when "todo_canceled" %>
+          已取消任务
+  <% end %>
+
+</td>
+
 <td> <%= todo.created_at%></td>
 </tr>
