@@ -18,4 +18,7 @@
     <tbody>
       <%= render :partial => "project_item", :collection => @projects, :as => :project  %>
     </tbody>
+    <% @team.user do |user|%>
+    <%= user.email %>
+    <% end %>
   </table>

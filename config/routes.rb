@@ -5,6 +5,10 @@ Rails.application.routes.draw do
      sessions: 'users/sessions'
    }
    resources :teams do
+     member do
+       post :join
+       post :quit
+     end
      resources :projects do
        resources :todos do
          member do
