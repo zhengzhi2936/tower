@@ -10,7 +10,9 @@ class ProjectsController < ApplicationController
     @project = Project.new(project_params)
     @project.team = @team
     @project.user = current_user
+    @event = Event.new
     if @project.save
+       @event.create_project!(@project)
       redirect_to team_path(@team)
     else
       render :new

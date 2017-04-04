@@ -2,6 +2,7 @@ class Todo < ApplicationRecord
   belongs_to :user
   belongs_to :project
   has_many :reviews
+  has_many :events
   include AASM
 
   aasm do

@@ -13,9 +13,11 @@ class ReviewsController < ApplicationController
     @project = Project.find(params[:team_id])
     @todo = Todo.find(params[:todo_id])
     @review = Review.new(review_params)
+    @event = Event.new
     @review.todo = @todo
     @review.user = current_user
     if @review.save!
+      @event.create_review!(@review)
       redirect_to team_project_todo_path(@team, @project, @todo)
     else
       render :new
@@ -34,9 +36,11 @@ class ReviewsController < ApplicationController
     @project = Project.find(params[:team_id])
     @todo = Todo.find(params[:todo_id])
     @review = Review.find(params[:id])
+    @event = Event.new
     @review.todo = @todo
     @review.user = current_user
     if @review.update(review_params)
+      @event.update_review!(@review)
       redirect_to team_project_todo_path(@team, @project, @todo)
     else
       render :edit
@@ -48,7 +52,9 @@ class ReviewsController < ApplicationController
     @project = Project.find(params[:team_id])
     @todo = Todo.find(params[:todo_id])
     @review = Review.find(params[:id])
+    @event = Event.new
     @review.destroy
+    @event.destroy_review!(@review)
       redirect_to team_project_todo_path(@team, @project, @todo)
   end
 

@@ -20,8 +20,10 @@ class TodosController < ApplicationController
     @todo = Todo.new(todo_params)
     @todo.project = @project
     @todo.user = current_user
+    @event = Event.new
     if @todo.save
       @todo.aasm_state = "todo_created"
+      @event.create_event!(@todo)
       redirect_to team_project_path(@team, @project)
     else
       render :new
@@ -38,9 +40,11 @@ class TodosController < ApplicationController
     @team = Team.find(params[:team_id])
     @project = Project.find(params[:project_id])
     @todo = Todo.find(params[:id])
+    @event = Event.new
     @todo.project = @project
     @todo.user = current_user
     if @todo.update(todo_params)
+      @event.update_event!(@todo)
       redirect_to team_project_path(@team, @project)
     else
       render :edit
@@ -51,7 +55,9 @@ class TodosController < ApplicationController
     @team = Team.find(params[:team_id])
     @project = Project.find(params[:project_id])
     @todo = Todo.find(params[:id])
+    @event = Event.new
     @todo.destroy
+    @event.destroy_event!(@todo)
       redirect_to team_project_path(@team, @project)
   end
 
@@ -59,7 +65,9 @@ class TodosController < ApplicationController
     @team = Team.find(params[:team_id])
     @project = Project.find(params[:project_id])
     @todo = Todo.find(params[:id])
+    @event = Event.new
     @todo.receive_todo!
+    @event.receive_event!(@todo)
       redirect_to team_project_path(@team, @project)
   end
 
@@ -67,7 +75,9 @@ class TodosController < ApplicationController
     @team = Team.find(params[:team_id])
     @project = Project.find(params[:project_id])
     @todo = Todo.find(params[:id])
+    @event = Event.new
     @todo.finish_todo!
+    @event.finish_event!(@todo)
       redirect_to team_project_path(@team, @project)
   end
 
@@ -75,7 +85,9 @@ class TodosController < ApplicationController
     @team = Team.find(params[:team_id])
     @project = Project.find(params[:project_id])
     @todo = Todo.find(params[:id])
+    @event = Event.new
     @todo.reopen_todo!
+    @event.reopen_event!(@todo)
       redirect_to team_project_path(@team, @project)
   end
 
@@ -83,7 +95,9 @@ class TodosController < ApplicationController
     @team = Team.find(params[:team_id])
     @project = Project.find(params[:project_id])
     @todo = Todo.find(params[:id])
+    @event = Event.new
     @todo.cancel_todo!
+    @event.cancel_event!(@todo)
       redirect_to team_project_path(@team, @project)
   end
 
@@ -91,7 +105,9 @@ class TodosController < ApplicationController
     @team = Team.find(params[:team_id])
     @project = Project.find(params[:project_id])
     @todo = Todo.find(params[:id])
+    @event = Event.new
     @todo.renew_todo!
+    @event.cancel_event!(@todo)
       redirect_to team_project_path(@team, @project)
   end
 private

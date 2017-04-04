@@ -23,5 +23,5 @@ Rails.application.routes.draw do
      end
    end
    root 'teams#index'
-
+   resources :events
 end

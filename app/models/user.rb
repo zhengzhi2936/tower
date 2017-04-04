@@ -8,6 +8,7 @@ class User < ApplicationRecord
   has_many :todos
   has_many :team_relationships
   has_many :participated_teams, :through => :team_relationships, source: :team
+  has_many :events
   def is_member_of?(team)
     participated_teams.include?(team)
   end
