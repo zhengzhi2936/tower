@@ -3,17 +3,19 @@ class ReviewsController < ApplicationController
 
   def new
     @team = Team.find(params[:team_id])
-    @project = Project.find(params[:team_id])
+    @project = Project.find(params[:project_id])
     @todo = Todo.find(params[:todo_id])
     @review = Review.new
   end
 
   def create
     @team = Team.find(params[:team_id])
-    @project = Project.find(params[:team_id])
+    @project = Project.find(params[:project_id])
     @todo = Todo.find(params[:todo_id])
     @review = Review.new(review_params)
     @event = Event.new
+    @review.team = @team
+    @review.project = @project
     @review.todo = @todo
     @review.user = current_user
     if @review.save!
@@ -26,16 +28,18 @@ class ReviewsController < ApplicationController
 
   def edit
     @team = Team.find(params[:team_id])
-    @project = Project.find(params[:team_id])
+    @project = Project.find(params[:project_id])
     @todo = Todo.find(params[:todo_id])
     @review = Review.find(params[:id])
   end
 
   def update
     @team = Team.find(params[:team_id])
-    @project = Project.find(params[:team_id])
+    @project = Project.find(params[:project_id])
     @todo = Todo.find(params[:todo_id])
     @review = Review.find(params[:id])
+    @review.team = @team
+    @review.project = @project
     @event = Event.new
     @review.todo = @todo
     @review.user = current_user
@@ -49,9 +53,11 @@ class ReviewsController < ApplicationController
 
   def destroy
     @team = Team.find(params[:team_id])
-    @project = Project.find(params[:team_id])
+    @project = Project.find(params[:project_id])
     @todo = Todo.find(params[:todo_id])
     @review = Review.find(params[:id])
+    @review.team = @team
+    @review.project = @project    
     @event = Event.new
     @review.destroy
     @event.destroy_review!(@review)

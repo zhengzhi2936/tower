@@ -1,10 +1,23 @@
-<% @events.each do |event| %>
-<% if event.class == Todo %>
-<%= event.action  %>
-<%= link_to(event.todo.title, team_project_todo_path(event.todo.team, event.todo.project, event.todo))%>
-<% elsif event.class == Project%>
-<%= link_to(event.project.title, team_project_path(event.project.team, event.project))%>
-<% elsif event.class == Review %>
-<%= link_to(event.review.todo.title, team_project_path(event.review.todo.team, event.review.todo.project, event.review.todo))%>
+  <% @events.each do |event| %>
+  <%= event.created_at.strftime("%I:%M %p") %>,
+  <%= link_to(event.user.email, "#") %>
+  <%= event.action %> :
+
+
+  <% case event.eventable %>
+    <% when "todo" %>
+      <%= link_to(event.todo.title, team_project_todo_path(event.todo.team, event.todo.project, event.todo))%>
+      <%= event.created_at.strftime('%y-%m-%d').to_s %>
+        项目名称：  <%= event.project.title %>
+      <br>
+    <% when "project" %>
+    <%= link_to(event.project.title, team_project_path(event.project.team, event.project))%>
+      <%= event.created_at.strftime('%y-%m-%d').to_s %>
+        项目名称：  <%= event.project.title %>
+      <br>
+    <% when "review" %>
+    <%= link_to(event.review.todo.title, team_project_todo_path(event.review.todo.team, event.review.todo.project, event.review.todo))%>
+      <%= event.created_at.strftime('%y-%m-%d').to_s %>
+        项目名称：  <%= event.project.title %>
   <% end %>
   <% end %>
