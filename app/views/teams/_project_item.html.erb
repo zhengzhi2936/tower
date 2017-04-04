@@ -1,6 +1,6 @@
 <tr>
     <td> <%= project.id%></td>
-    <td> <%= link_to team_project_path(project) do %>
+    <td> <%= link_to team_project_path(project.team, project) do %>
       <%= project.title %>
         <% end %>
     </td>

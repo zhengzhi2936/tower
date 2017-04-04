@@ -1,7 +1,8 @@
 <% @events.each do |event| %>
+<%= event.created_at.strftime('%y-%m-%d') %>
 <% if event.user.email.present? %>
 <%= event.user.email %>
 <% end %>
+
 <%= event.action %>
-<%= event.content %>
 <% end %>

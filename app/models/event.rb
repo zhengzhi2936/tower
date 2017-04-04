@@ -16,11 +16,13 @@ class Event < ApplicationRecord
     self.action = "更新了#{todo.title}任务！"
     self.content = todo.title
     self.todo = todo
+    self.user = todo.user
     self.save!
   end
   def destroy_event!(todo)
     self.action = "删除了#{todo.title}任务！"
     self.content = todo.title
+    self.user = todo.user
     self.todo = todo
     self.save!
   end
@@ -28,6 +30,7 @@ class Event < ApplicationRecord
   def receive_event!(todo)
     self.action = "接受了#{todo.title}任务！"
     self.content = todo.title
+    self.user = todo.user
     self.todo = todo
     self.save!
   end
@@ -36,6 +39,7 @@ class Event < ApplicationRecord
     self.action = "完成了#{todo.title}任务！"
     self.content = todo.title
     self.todo = todo
+    self.user = todo.user
     self.save!
   end
 
@@ -43,6 +47,7 @@ class Event < ApplicationRecord
     self.action = "取消领取了#{todo.title}任务！"
     self.content = todo.title
     self.todo = todo
+    self.user = todo.user
     self.save!
   end
 
@@ -50,6 +55,7 @@ class Event < ApplicationRecord
     self.action = "取消了#{todo.title}任务！"
     self.content = todo.title
     self.todo = todo
+    self.user = todo.user
     self.save!
   end
 
@@ -57,6 +63,7 @@ class Event < ApplicationRecord
     self.action = "恢复了#{todo.title}任务！"
     self.content = todo.title
     self.todo = todo
+    self.user = todo.user    
     self.save!
   end
 
