@@ -19,6 +19,7 @@ class TodosController < ApplicationController
     @project = Project.find(params[:project_id])
     @todo = Todo.new(todo_params)
     @todo.project = @project
+    @todo.team = @team
     @todo.user = current_user
     @event = Event.new
     if @todo.save
@@ -42,6 +43,7 @@ class TodosController < ApplicationController
     @todo = Todo.find(params[:id])
     @event = Event.new
     @todo.project = @project
+    @todo.team = @team
     @todo.user = current_user
     if @todo.update(todo_params)
       @event.update_event!(@todo)
@@ -54,6 +56,8 @@ class TodosController < ApplicationController
   def destroy
     @team = Team.find(params[:team_id])
     @project = Project.find(params[:project_id])
+    @todo.project = @project
+    @todo.team = @team
     @todo = Todo.find(params[:id])
     @todo.user = current_user
     @event = Event.new
@@ -66,6 +70,8 @@ class TodosController < ApplicationController
     @team = Team.find(params[:team_id])
     @project = Project.find(params[:project_id])
     @todo = Todo.find(params[:id])
+    @todo.project = @project
+    @todo.team = @team
     @todo.user = current_user
     @event = Event.new
     @todo.receive_todo!
@@ -77,6 +83,8 @@ class TodosController < ApplicationController
     @team = Team.find(params[:team_id])
     @project = Project.find(params[:project_id])
     @todo = Todo.find(params[:id])
+    @todo.project = @project
+    @todo.team = @team
     @todo.user = current_user
     @event = Event.new
     @todo.finish_todo!
@@ -89,6 +97,8 @@ class TodosController < ApplicationController
     @project = Project.find(params[:project_id])
     @todo = Todo.find(params[:id])
     @todo.user = current_user
+    @todo.project = @project
+    @todo.team = @team
     @event = Event.new
     @todo.reopen_todo!
     @event.reopen_event!(@todo)
@@ -99,6 +109,8 @@ class TodosController < ApplicationController
     @team = Team.find(params[:team_id])
     @project = Project.find(params[:project_id])
     @todo = Todo.find(params[:id])
+    @todo.project = @project
+    @todo.team = @team
     @todo.user = current_user
     @event = Event.new
     @todo.cancel_todo!
@@ -110,7 +122,9 @@ class TodosController < ApplicationController
     @team = Team.find(params[:team_id])
     @project = Project.find(params[:project_id])
     @todo = Todo.find(params[:id])
-    @todo.user = current_user    
+    @todo.user = current_user
+    @todo.project = @project
+    @todo.team = @team
     @event = Event.new
     @todo.renew_todo!
     @event.cancel_event!(@todo)

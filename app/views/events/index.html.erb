@@ -1,8 +1,10 @@
 <% @events.each do |event| %>
-<%= event.created_at.strftime('%y-%m-%d') %>
-<% if event.user.email.present? %>
-<%= event.user.email %>
-<% end %>
-
-<%= event.action %>
-<% end %>
+<% if event.class == Todo %>
+<%= event.action  %>
+<%= link_to(event.todo.title, team_project_todo_path(event.todo.team, event.todo.project, event.todo))%>
+<% elsif event.class == Project%>
+<%= link_to(event.project.title, team_project_path(event.project.team, event.project))%>
+<% elsif event.class == Review %>
+<%= link_to(event.review.todo.title, team_project_path(event.review.todo.team, event.review.todo.project, event.review.todo))%>
+  <% end %>
+  <% end %>

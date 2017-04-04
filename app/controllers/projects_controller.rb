@@ -45,6 +45,7 @@ class ProjectsController < ApplicationController
   def destroy
     @team = Team.find(params[:team_id])
     @project = Project.find(params[:id])
+    @project.team = @team
     @project.destroy
     redirect_to team_path(@team)
   end

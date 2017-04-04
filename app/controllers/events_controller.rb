@@ -3,5 +3,6 @@ class EventsController < ApplicationController
 
   def index
     @events = Event.all
+    @group_events = @events.group_by{|e| e.created_at.to_date}
   end
 end

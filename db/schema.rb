@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170404051105) do
+ActiveRecord::Schema.define(version: 20170404101951) do
 
   create_table "events", force: :cascade do |t|
     t.string   "action"
@@ -62,6 +62,7 @@ ActiveRecord::Schema.define(version: 20170404051105) do
     t.datetime "created_at",                           null: false
     t.datetime "updated_at",                           null: false
     t.string   "aasm_state",  default: "todo_created"
+    t.integer  "team_id"
     t.index ["aasm_state"], name: "index_todos_on_aasm_state"
   end
 

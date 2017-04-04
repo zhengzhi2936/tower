@@ -10,6 +10,8 @@ class Event < ApplicationRecord
     self.content = todo.title
     self.todo = todo
     self.user = todo.user
+    self.project = todo.project
+    self.team = todo.team
     self.save!
   end
   def update_event!(todo)
@@ -17,6 +19,8 @@ class Event < ApplicationRecord
     self.content = todo.title
     self.todo = todo
     self.user = todo.user
+    self.project = todo.project
+    self.team = todo.team
     self.save!
   end
   def destroy_event!(todo)
@@ -24,6 +28,8 @@ class Event < ApplicationRecord
     self.content = todo.title
     self.user = todo.user
     self.todo = todo
+    self.project = todo.project
+    self.team = todo.team
     self.save!
   end
 
@@ -32,6 +38,8 @@ class Event < ApplicationRecord
     self.content = todo.title
     self.user = todo.user
     self.todo = todo
+    self.project = todo.project
+    self.team = todo.team
     self.save!
   end
 
@@ -40,6 +48,8 @@ class Event < ApplicationRecord
     self.content = todo.title
     self.todo = todo
     self.user = todo.user
+    self.project = todo.project
+    self.team = todo.team
     self.save!
   end
 
@@ -48,6 +58,8 @@ class Event < ApplicationRecord
     self.content = todo.title
     self.todo = todo
     self.user = todo.user
+    self.project = todo.project
+    self.team = todo.team
     self.save!
   end
 
@@ -63,7 +75,9 @@ class Event < ApplicationRecord
     self.action = "恢复了#{todo.title}任务！"
     self.content = todo.title
     self.todo = todo
-    self.user = todo.user    
+    self.user = todo.user
+    self.project = todo.project
+    self.team = todo.team
     self.save!
   end
 
@@ -87,6 +101,9 @@ class Event < ApplicationRecord
       self.content = review.todo.title
       self.review = review
       self.user = review.user
+      self.todo = review.todo
+      self.project = todo.project
+      self.team = todo.team
       self.save!
     end
 
@@ -94,6 +111,7 @@ class Event < ApplicationRecord
     def create_project!(project)
       self.action = "创建了#{project.title}项目！"
       self.content = project.title
+      self.team = project.team
       self.project= project
       self.user = project.user
       self.save!

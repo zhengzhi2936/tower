@@ -4,4 +4,5 @@ class Team < ApplicationRecord
   has_many :team_relationships
   has_many :members, through: :team_relationships, source: :user
   has_many :events
+  has_many :todos
 end
