@@ -20,4 +20,11 @@ class User < ApplicationRecord
   def quit!(team)
     participated_teams.delete(team)
   end
+
+  def admin?
+    self.role == "admin"
+  end
+  def member?
+    self.role == "member"
+  end
 end

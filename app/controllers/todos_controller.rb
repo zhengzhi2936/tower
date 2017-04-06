@@ -118,6 +118,33 @@ class TodosController < ApplicationController
       redirect_to team_project_path(@team, @project)
   end
 
+  def assign_people
+    @team = Team.find(params[:team_id])
+    @project = Project.find(params[:project_id])
+    @todo = Todo.find(params[:id])
+    @todo.user = current_user
+    @todo.project = @project
+    @todo.team = @team
+    @event = Event.new
+    if @todo.update(todo_params)
+      @event.assign_people_event!(@todo)
+      redirect_to :back
+    end
+  end
+
+  def assign_time
+    @team = Team.find(params[:team_id])
+    @project = Project.find(params[:project_id])
+    @todo = Todo.find(params[:id])
+    @todo.user = current_user
+    @todo.project = @project
+    @todo.team = @team
+    @event = Event.new
+    if @todo.update(todo_params)
+      @event.assign_time_event! (@todo)
+      redirect_to :back
+    end
+  end
   def renew_todo
     @team = Team.find(params[:team_id])
     @project = Project.find(params[:project_id])
@@ -133,6 +160,6 @@ class TodosController < ApplicationController
 private
 
    def todo_params
-     params.require(:todo).permit(:title, :description)
+     params.require(:todo).permit(:title, :description, :recipient, :deadline)
    end
 end

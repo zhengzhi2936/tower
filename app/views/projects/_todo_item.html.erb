@@ -4,6 +4,19 @@
   <%= todo.title %>
     <% end %>
 </td>
+<td>
+
+
+     <%= simple_form_for todo, url: assign_people_team_project_todo_path(team, project, todo) do |f| %>
+       <%= f.input :recipient %>
+       <%= f.submit "更新", data: { disable_with: "Submiting..." } %>
+     <% end %>
+
+     <%= simple_form_for todo, url: assign_time_team_project_todo_path(team, project, todo) do |f| %>
+       <%= f.input :deadline %>
+       <%= f.submit "更新", data: { disable_with: "Submiting..." } %>
+     <% end %>
+</td>
 <td> <%= link_to("编辑", edit_team_project_todo_path(team, project, todo), class: "btn btn-sm btn-success")%>
 <%= link_to("删除", team_project_todo_path(team, project, todo), method: :delete, class: "btn btn-sm btn-danger", data: {confirm: "确定吗"})%>
 
@@ -53,8 +66,6 @@
   <% when "todo_canceled" %>
           已取消任务
   <% end %>
-
 </td>
-
 <td> <%= todo.created_at%></td>
 </tr>

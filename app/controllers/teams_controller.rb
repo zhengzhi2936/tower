@@ -1,7 +1,7 @@
 class TeamsController < ApplicationController
   before_action :authenticate_user!
   before_action :require_is_member_of_team, except: [:index, :new, :create, :join]
-
+  before_action :authenticate_admin, only: [:destroy, :edit, :update]
   def index
     @teams = Team.all
   end
@@ -50,6 +50,12 @@ class TeamsController < ApplicationController
     end
 
     redirect_to :back
+  end
+
+  def destroy
+   @team = Team.find(params[:id])
+   @team.destroy
+   redirect_to "/"
   end
 private
 

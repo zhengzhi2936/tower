@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170404131203) do
+ActiveRecord::Schema.define(version: 20170406060044) do
 
   create_table "events", force: :cascade do |t|
     t.string   "action"
@@ -66,6 +66,8 @@ ActiveRecord::Schema.define(version: 20170404131203) do
     t.datetime "updated_at",                           null: false
     t.string   "aasm_state",  default: "todo_created"
     t.integer  "team_id"
+    t.string   "recipient"
+    t.datetime "deadline"
     t.index ["aasm_state"], name: "index_todos_on_aasm_state"
   end
 
@@ -82,6 +84,7 @@ ActiveRecord::Schema.define(version: 20170404131203) do
     t.string   "last_sign_in_ip"
     t.datetime "created_at",                          null: false
     t.datetime "updated_at",                          null: false
+    t.string   "role"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
