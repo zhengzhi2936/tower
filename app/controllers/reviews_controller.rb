@@ -45,7 +45,7 @@ class ReviewsController < ApplicationController
     @review.project = @project
     @event = Event.new
     @review.destroy
-    @event.destroy_review!(@review)
+    # @event.destroy_review!(@review)
       redirect_to team_project_todo_path(@team, @project, @todo)
   end
 

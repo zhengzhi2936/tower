@@ -25,16 +25,16 @@ class Event < ApplicationRecord
     self.team = todo.team
     self.save!
   end
-  def destroy_event!(todo)
-    self.action = "删除了#{todo.title}任务！"
-    self.content = todo.title
-    self.eventable = "todo"
-    self.user = todo.user
-    self.todo = todo
-    self.project = todo.project
-    self.team = todo.team
-    self.save!
-  end
+  # def destroy_event!(todo)
+  #   self.action = "删除了#{todo.title}任务！"
+  #   self.content = todo.title
+  #   self.eventable = "todo"
+  #   self.user = todo.user
+  #   self.todo = todo
+  #   self.project = todo.project
+  #   self.team = todo.team
+  #   self.save!
+  # end
 
   def receive_event!(todo)
     self.action = "接受了#{todo.title}任务！"
@@ -131,16 +131,16 @@ class Event < ApplicationRecord
       self.user = review.user
       self.save!
     end
-    def destroy_review!(review)
-      self.action = "删除了关于#{review.todo.title}任务的评论！"
-      self.content = review.todo.title
-      self.eventable = "review"
-      self.review = review
-      self.project = review.project
-      self.team = review.team
-      self.user = review.user
-      self.save!
-    end
+    # def destroy_review!(review)
+    #   self.action = "删除了关于#{review.todo.title}任务的评论！"
+    #   self.content = review.todo.title
+    #   self.eventable = "review"
+    #   self.review = review
+    #   self.project = review.project
+    #   self.team = review.team
+    #   self.user = review.user
+    #   self.save!
+    # end
 
 
     def create_project!(project)

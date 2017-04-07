@@ -47,7 +47,7 @@ class TodosController < ApplicationController
     @todo.user = current_user
     @event = Event.new
     @todo.destroy
-    @event.destroy_event!(@todo)
+    # @event.destroy_event!(@todo)
       redirect_to team_project_path(@team, @project)
   end
 
