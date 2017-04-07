@@ -9,11 +9,4 @@ protected
       redirect_to root_path
     end
   end
-
-    def authenticate_member
-      unless current_user.member?
-        flash[:alert] = "Not allow!"
-        redirect_to root_path
-      end
-    end 
 end

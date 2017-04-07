@@ -1,23 +1,20 @@
   <% @events.each do |event| %>
+  <h4><%= event.created_at.strftime('%y-%m-%d') %></h4>
   <%= event.created_at.strftime("%I:%M %p") %>,
+    <h4 class="pull-right"> <%= event.project.title %> </h4>
   <%= link_to(event.user.email, "#") %>
   <%= event.action %> :
-
-
   <% case event.eventable %>
     <% when "todo" %>
       <%= link_to(event.todo.title, team_project_todo_path(event.todo.team, event.todo.project, event.todo))%>
-      <%= event.created_at.strftime('%y-%m-%d').to_s %>
-        项目名称：  <%= event.project.title %>
+      <!-- <%= event.created_at.strftime('%y-%m-%d').to_s %> -->
       <br>
     <% when "project" %>
     <%= link_to(event.project.title, team_project_path(event.project.team, event.project))%>
-      <%= event.created_at.strftime('%y-%m-%d').to_s %>
-        项目名称：  <%= event.project.title %>
+      <!-- <%= event.created_at.strftime('%y-%m-%d').to_s %> -->
       <br>
     <% when "review" %>
     <%= link_to(event.review.todo.title, team_project_todo_path(event.review.todo.team, event.review.todo.project, event.review.todo))%>
-      <%= event.created_at.strftime('%y-%m-%d').to_s %>
-        项目名称：  <%= event.project.title %>
+      <!-- <%= event.created_at.strftime('%y-%m-%d').to_s %> -->
   <% end %>
   <% end %>

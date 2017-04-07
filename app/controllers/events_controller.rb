@@ -3,7 +3,7 @@ class EventsController < ApplicationController
 
   def index
     @team = Team.find(params[:team_id])
-    @events = @team.events.all
-    @group_events = @events.group_by{|e| e.created_at.to_date}
+    @events = @team.events.all.order("id DESC")
+    @group_events = @events.group("strftime('%Y-%m-%d', @events.created_at)")
   end
 end

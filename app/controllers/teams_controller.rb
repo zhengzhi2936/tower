@@ -1,7 +1,7 @@
 class TeamsController < ApplicationController
   before_action :authenticate_user!
-  before_action :require_is_member_of_team, except: [:index, :new, :create, :join]
-  before_action :authenticate_admin, only: [:destroy, :edit, :update]
+  before_action :require_is_member_of_team, except: [:index, :new, :create, :join, :destroy, :edit]
+  before_action :require_is_admin_of_team, only: [:destroy, :edit, :update]
   def index
     @teams = Team.all
   end
@@ -19,6 +19,7 @@ class TeamsController < ApplicationController
     @team = Team.new(team_params)
     @team.user = current_user
     if @team.save
+    current_user.own!(@team)
     current_user.join!(@team)
       redirect_to "/"
     else
@@ -26,6 +27,19 @@ class TeamsController < ApplicationController
     end
   end
 
+  def edit
+    @team = Team.find(params[:id])
+  end
+
+  def update
+    @team = Team.find(params[:id])
+    @team.user = current_user
+    if @team.update(team_params)
+      redirect_to "/"
+    else
+      render :edit
+    end
+  end
   def join
    @team = Team.find(params[:id])
 
@@ -67,6 +81,13 @@ private
     @team = Team.all.find(params[:id])
     if !current_user.is_member_of?(@team)
       redirect_to "/", alert: "你不是团队成员"
+    end
+  end
+
+  def require_is_admin_of_team
+    @team = Team.all.find(params[:id])
+    if !current_user.is_owner_of?(@team)
+      redirect_to "/", alert: "你不管理员"
     end
   end
 end
