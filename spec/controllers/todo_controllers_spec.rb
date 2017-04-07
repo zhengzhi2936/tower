@@ -6,7 +6,7 @@ require 'rails_helper'
         @user = User.create!(:email => "1234@1234", :password => "12345678")
         @team = Team.create!(name: "123", user: @user)
         @project = Project.create!(title: "project 1", user: @user, team: @team)
-        @todo = Todo.create!(title: "1234", user: @user, project: @project, team: @team)
+        @todo = Todo.create!(title: "1234", description: "1324", user: @user, project: @project, team: @team)
         sign_in(@user)
       end
 
