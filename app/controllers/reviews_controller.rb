@@ -1,17 +1,13 @@
 class ReviewsController < ApplicationController
   before_action :authenticate_user!
-
+  before_action :find_team_project_todo
+  before_action :find_review, only: [:edit, :update, :destroy]
   def new
-    @team = Team.find(params[:team_id])
-    @project = Project.find(params[:project_id])
-    @todo = Todo.find(params[:todo_id])
+
     @review = Review.new
   end
 
   def create
-    @team = Team.find(params[:team_id])
-    @project = Project.find(params[:project_id])
-    @todo = Todo.find(params[:todo_id])
     @review = Review.new(review_params)
     @event = Event.new
     @review.team = @team
@@ -27,17 +23,10 @@ class ReviewsController < ApplicationController
   end
 
   def edit
-    @team = Team.find(params[:team_id])
-    @project = Project.find(params[:project_id])
-    @todo = Todo.find(params[:todo_id])
-    @review = Review.find(params[:id])
+
   end
 
   def update
-    @team = Team.find(params[:team_id])
-    @project = Project.find(params[:project_id])
-    @todo = Todo.find(params[:todo_id])
-    @review = Review.find(params[:id])
     @review.team = @team
     @review.project = @project
     @event = Event.new
@@ -52,12 +41,8 @@ class ReviewsController < ApplicationController
   end
 
   def destroy
-    @team = Team.find(params[:team_id])
-    @project = Project.find(params[:project_id])
-    @todo = Todo.find(params[:todo_id])
-    @review = Review.find(params[:id])
     @review.team = @team
-    @review.project = @project    
+    @review.project = @project
     @event = Event.new
     @review.destroy
     @event.destroy_review!(@review)
@@ -68,5 +53,14 @@ private
 
   def review_params
     params.require(:review).permit(:content)
+  end
+  def find_team_project_todo
+    @team = Team.find(params[:team_id])
+    @project = Project.find(params[:project_id])
+    @todo = Todo.find(params[:todo_id])
+  end
+
+  def find_review
+    @review = Review.find(params[:id])
   end
 end

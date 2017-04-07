@@ -1,22 +1,16 @@
 class TodosController < ApplicationController
   before_action :authenticate_user!
-
+  before_action :find_team_and_project
+  before_action :find_todo, except: [:new, :create]
   def show
-    @team = Team.find(params[:team_id])
-    @project = Project.find(params[:project_id])
-    @todo = Todo.find(params[:id])
     @reviews = @todo.reviews
   end
 
   def new
-    @team = Team.find(params[:team_id])
-    @project = Project.find(params[:project_id])
     @todo = Todo.new
   end
 
   def create
-    @team = Team.find(params[:team_id])
-    @project = Project.find(params[:project_id])
     @todo = Todo.new(todo_params)
     @todo.project = @project
     @todo.team = @team
@@ -32,15 +26,9 @@ class TodosController < ApplicationController
   end
 
   def edit
-    @team = Team.find(params[:team_id])
-    @project = Project.find(params[:project_id])
-    @todo = Todo.find(params[:id])
   end
 
   def update
-    @team = Team.find(params[:team_id])
-    @project = Project.find(params[:project_id])
-    @todo = Todo.find(params[:id])
     @event = Event.new
     @todo.project = @project
     @todo.team = @team
@@ -54,11 +42,8 @@ class TodosController < ApplicationController
   end
 
   def destroy
-    @team = Team.find(params[:team_id])
-    @project = Project.find(params[:project_id])
     @todo.project = @project
     @todo.team = @team
-    @todo = Todo.find(params[:id])
     @todo.user = current_user
     @event = Event.new
     @todo.destroy
@@ -67,9 +52,6 @@ class TodosController < ApplicationController
   end
 
   def receive_todo
-    @team = Team.find(params[:team_id])
-    @project = Project.find(params[:project_id])
-    @todo = Todo.find(params[:id])
     @todo.project = @project
     @todo.team = @team
     @todo.user = current_user
@@ -80,9 +62,6 @@ class TodosController < ApplicationController
   end
 
   def finish_todo
-    @team = Team.find(params[:team_id])
-    @project = Project.find(params[:project_id])
-    @todo = Todo.find(params[:id])
     @todo.project = @project
     @todo.team = @team
     @todo.user = current_user
@@ -93,9 +72,6 @@ class TodosController < ApplicationController
   end
 
   def reopen_todo
-    @team = Team.find(params[:team_id])
-    @project = Project.find(params[:project_id])
-    @todo = Todo.find(params[:id])
     @todo.user = current_user
     @todo.project = @project
     @todo.team = @team
@@ -106,9 +82,6 @@ class TodosController < ApplicationController
   end
 
   def cancel_todo
-    @team = Team.find(params[:team_id])
-    @project = Project.find(params[:project_id])
-    @todo = Todo.find(params[:id])
     @todo.project = @project
     @todo.team = @team
     @todo.user = current_user
@@ -119,9 +92,6 @@ class TodosController < ApplicationController
   end
 
   def assign_people
-    @team = Team.find(params[:team_id])
-    @project = Project.find(params[:project_id])
-    @todo = Todo.find(params[:id])
     @todo.user = current_user
     @todo.project = @project
     @todo.team = @team
@@ -133,9 +103,6 @@ class TodosController < ApplicationController
   end
 
   def assign_time
-    @team = Team.find(params[:team_id])
-    @project = Project.find(params[:project_id])
-    @todo = Todo.find(params[:id])
     @todo.user = current_user
     @todo.project = @project
     @todo.team = @team
@@ -146,9 +113,6 @@ class TodosController < ApplicationController
     end
   end
   def renew_todo
-    @team = Team.find(params[:team_id])
-    @project = Project.find(params[:project_id])
-    @todo = Todo.find(params[:id])
     @todo.user = current_user
     @todo.project = @project
     @todo.team = @team
@@ -161,5 +125,14 @@ private
 
    def todo_params
      params.require(:todo).permit(:title, :description, :recipient, :deadline)
+   end
+
+   def find_team_and_project
+     @team = Team.find(params[:team_id])
+     @project = Project.find(params[:project_id])
+   end
+
+   def find_todo
+    @todo = Todo.find(params[:id])
    end
 end

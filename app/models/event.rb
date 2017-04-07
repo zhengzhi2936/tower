@@ -134,12 +134,11 @@ class Event < ApplicationRecord
     def destroy_review!(review)
       self.action = "删除了关于#{review.todo.title}任务的评论！"
       self.content = review.todo.title
-      self.review = review
       self.eventable = "review"
-      self.user = review.user
-      self.todo = review.todo
+      self.review = review
       self.project = review.project
       self.team = review.team
+      self.user = review.user
       self.save!
     end
 

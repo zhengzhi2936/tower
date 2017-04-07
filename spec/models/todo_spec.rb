@@ -21,7 +21,7 @@ require 'rails_helper'
         @todo.renew_todo
         expect(@todo.aasm_state).to eq("todo_created")
       end
-      
+
       it "should be a received state" do
         @todo.receive_todo
         expect(@todo.aasm_state).to eq("received")
@@ -52,15 +52,4 @@ require 'rails_helper'
         @todo.cancel_todo
         expect(@todo.aasm_state).to eq("todo_canceled")
       end
-    #   it 'should change to :idling on :ignite' do
-    #     @vehicle.ignite!
-    #     @vehicle.should be_idling
-    #   end
-    #
-    #   ['shift_up!', 'shift_down!'].each do |action|
-    #     it "should raise an error for #{action}" do
-    #       lambda {@job_offer.send(action)}.should raise_error
-    #     end
-    #   end
-    # end
 end
