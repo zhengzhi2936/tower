@@ -3,8 +3,9 @@
     <%= f.input :title, label: "任务内容", input_html: { class: "form-control" } %>
     <%= f.input :description, label: "任务描述", input_html: { class: "form-control" } %>
     <%= f.simple_fields_for @assignment do |af| %>
+      <% if ["new", "create"].include?(controller.action_name) %>
       <%= af.input :origin_executor_email, label: "指派给某人", placeholder: "请填入用户邮箱" %>
-      <%= af.input :new_executor_email, label: "指派给另一个人", placeholder: "请填入用户邮箱"%>
+
       <p>
         <b>原截止日期</b>
       </p>
@@ -15,6 +16,8 @@
           </span>
       </div>
       <br />
+        <% else %>
+        <%= af.input :new_executor_email, label: "指派给另一个人", placeholder: "请填入用户邮箱"%>
       <p>
         <b>新截止日期</b>
       </p>
@@ -24,6 +27,7 @@
               <span class="glyphicon glyphicon-calendar"></span>
           </span>
       </div>
+        <% end %>
     <% end %>
   </div>
   <% if ["new", "create"].include?(controller.action_name) %>

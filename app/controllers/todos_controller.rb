@@ -161,7 +161,7 @@ def assignment_params
   @assignment = @todo.assignment
   if @assignment.present?
     if @assignment.update(new_params)
-      if new_params[:new_executor_id].present?
+      if new_params[:new_executor_id].present? && new_params[:new_deadline].present?
       @event = Event.new
       @event.assign_new_executor_event!(@todo)
       end

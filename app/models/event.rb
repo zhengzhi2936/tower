@@ -91,7 +91,7 @@ class Event < ApplicationRecord
     self.save!
   end
   def assign_origin_executor_event!(todo)
-    self.action = "指派了#{todo.title}任务给#{todo.assignment.origin_executor.email}"
+    self.action = "指派了#{todo.title}任务给#{todo.assignment.origin_executor.email},完成时间#{todo.assignment.origin_deadline.strftime("%Y年%-m月%d日")}"
     self.content = todo.title
     self.todo = todo
     self.eventable = "todo"
@@ -101,7 +101,7 @@ class Event < ApplicationRecord
     self.save!
   end
   def assign_new_executor_event!(todo)
-    self.action = "重新指派了#{todo.title}给#{todo.assignment.new_executor.email}"
+    self.action = "重新指派了#{todo.title}给#{todo.assignment.new_executor.email},完成时间#{todo.assignment.new_deadline.strftime("%Y年%-m月%d日")}"
     self.content = todo.title
     self.todo = todo
     self.eventable = "todo"
