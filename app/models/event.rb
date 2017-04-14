@@ -90,8 +90,8 @@ class Event < ApplicationRecord
     self.team = todo.team
     self.save!
   end
-  def assign_people_event!(todo)
-    self.action = "指派了#{todo.title}任务给#{todo.recipient}"
+  def assign_origin_executor_event!(todo)
+    self.action = "指派了#{todo.title}任务给#{todo.assignment.origin_executor.email}"
     self.content = todo.title
     self.todo = todo
     self.eventable = "todo"
@@ -100,8 +100,8 @@ class Event < ApplicationRecord
     self.team = todo.team
     self.save!
   end
-  def assign_time_event!(todo)
-    self.action = "指派了#{todo.title}任务最后完成日期#{todo.deadline}"
+  def assign_new_executor_event!(todo)
+    self.action = "重新指派了#{todo.title}给#{todo.assignment.new_executor.email}"
     self.content = todo.title
     self.todo = todo
     self.eventable = "todo"

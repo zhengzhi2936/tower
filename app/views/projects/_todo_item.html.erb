@@ -6,7 +6,7 @@
 </td>
 <td>
 <% if todo.assignment.present? and todo.assignment.new_executor.present? %>
-  <%= link_to todo.assignment.new_executor.user_name, "#" %>
+  <%= link_to todo.assignment.new_executor.email, "#" %>
 <% else %>
    <% if todo.assignment.present? and todo.assignment.origin_executor.present? %>
     <%= link_to todo.assignment.origin_executor.email, "#" %>

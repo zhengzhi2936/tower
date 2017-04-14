@@ -35,9 +35,10 @@ class TodosController < ApplicationController
     @todo.project = @project
     @todo.team = @team
     @todo.user = current_user
-    assignment_params
+
     if @todo.update(todo_params)
       @event.update_event!(@todo)
+      assignment_params
     else
       render :edit
     end
@@ -93,27 +94,6 @@ class TodosController < ApplicationController
       redirect_to team_project_path(@team, @project)
   end
 
-  def assign_people
-    @todo.user = current_user
-    @todo.project = @project
-    @todo.team = @team
-    @event = Event.new
-    if @todo.update(todo_params)
-      @event.assign_people_event!(@todo)
-      redirect_to :back
-    end
-  end
-
-  def assign_time
-    @todo.user = current_user
-    @todo.project = @project
-    @todo.team = @team
-    @event = Event.new
-    if @todo.update(todo_params)
-      @event.assign_time_event! (@todo)
-      redirect_to :back
-    end
-  end
   def renew_todo
     @todo.user = current_user
     @todo.project = @project
@@ -145,7 +125,7 @@ def assignment_params
   new_executor_email = assignment[:new_executor_email]
   origin_deadline = assignment[:origin_deadline]
   new_deadline = assignment[:new_deadline]
-    @event = Event.new
+
   if origin_executor_email.present?
     @origin_executor = User.find_by_email(origin_executor_email)
     if !@origin_executor.present?
@@ -181,8 +161,9 @@ def assignment_params
   @assignment = @todo.assignment
   if @assignment.present?
     if @assignment.update(new_params)
-      if new_params[:origin_executor_id].present? or new_params[:new_executor_id].present?
-      @event.assign_people_event!(@todo)
+      if new_params[:new_executor_id].present?
+      @event = Event.new
+      @event.assign_new_executor_event!(@todo)
       end
       flash[:notice] = "任务更新成功"
       redirect_to team_project_path(@team, @project)
@@ -192,13 +173,13 @@ def assignment_params
   else
     if @todo.create_assignment(new_params)
       if new_params[:origin_executor_id].present?
-
-        @event.assign_people_event!(@todo)
+        @event = Event.new
+        @event.assign_origin_executor_event!(@todo)
       end
       redirect_to team_project_path(@team, @project)
     else
-      render :new
       flash[:notice] = "出现错误"
+      redirect_back(fallback_location: root_path)
     end
   end
 end
