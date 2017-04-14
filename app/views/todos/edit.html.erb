@@ -1,5 +1,6 @@
-<%= simple_form_for [@team, @project, @todo] do |f| %>
-<%= f.input :title %>
-<%= f.input :description %>
-<%= f.submit "Submit", :disable_with => 'Submiting...' %>
-<% end %>
+<div class="col-md-4 col-md-offset-4">
+  <h2>修改任务</h2>
+  <hr />
+
+  <%= render "form" %>
+</div>

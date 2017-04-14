@@ -10,7 +10,17 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170407030714) do
+ActiveRecord::Schema.define(version: 20170414112144) do
+
+  create_table "assignments", force: :cascade do |t|
+    t.integer  "origin_executor_id"
+    t.integer  "new_executor_id"
+    t.datetime "origin_deadline"
+    t.datetime "new_deadline"
+    t.integer  "todo_id"
+    t.datetime "created_at",         null: false
+    t.datetime "updated_at",         null: false
+  end
 
   create_table "events", force: :cascade do |t|
     t.string   "action"

@@ -39,6 +39,8 @@ gem 'bootstrap-sass'
 gem 'simple_form'
 gem 'aasm'
 gem 'rails-controller-testing'
+gem 'momentjs-rails', '>= 2.9.0'
+gem 'bootstrap3-datetimepicker-rails', '~> 4.17', '>= 4.17.42'
 group :development, :test do
   gem 'rspec-rails'
   gem 'sqlite3'

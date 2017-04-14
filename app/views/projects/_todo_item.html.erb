@@ -5,17 +5,22 @@
     <% end %>
 </td>
 <td>
-
-
-     <%= simple_form_for todo, url: assign_people_team_project_todo_path(team, project, todo) do |f| %>
-       <%= f.input :recipient %>
-       <%= f.submit "更新", data: { disable_with: "Submiting..." } %>
-     <% end %>
-
-     <%= simple_form_for todo, url: assign_time_team_project_todo_path(team, project, todo) do |f| %>
-       <%= f.input :deadline %>
-       <%= f.submit "更新", data: { disable_with: "Submiting..." } %>
-     <% end %>
+<% if todo.assignment.present? and todo.assignment.new_executor.present? %>
+  <%= link_to todo.assignment.new_executor.user_name, "#" %>
+<% else %>
+   <% if todo.assignment.present? and todo.assignment.origin_executor.present? %>
+    <%= link_to todo.assignment.origin_executor.email, "#" %>
+  <% else %>
+    <%= "还没有指定的完成者" %>
+  <% end %>
+<% end %>
+</td>
+<td>
+  <% if todo.assignment.present? and todo.assignment.origin_deadline.present? %>
+  <%= todo.assignment.origin_deadline.strftime("%Y年%-m月%d日") %>
+  <% else %>
+  <%= "没有截止日期" %>
+<% end %>
 </td>
 <td> <%= link_to("编辑", edit_team_project_todo_path(team, project, todo), class: "btn btn-sm btn-success")%>
 <%= link_to("删除", team_project_todo_path(team, project, todo), method: :delete, class: "btn btn-sm btn-danger", data: {confirm: "确定吗"})%>
@@ -67,5 +72,5 @@
           已取消任务
   <% end %>
 </td>
-<td> <%= todo.created_at%></td>
+<td> <%= todo.created_at.strftime("%Y年%-m月%d日%H时%M分")%></td>
 </tr>
