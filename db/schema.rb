@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170415010638) do
+ActiveRecord::Schema.define(version: 20170415012811) do
 
   create_table "assignments", force: :cascade do |t|
     t.integer  "origin_executor_id"
@@ -33,6 +33,11 @@ ActiveRecord::Schema.define(version: 20170415010638) do
     t.datetime "updated_at", null: false
     t.string   "content"
     t.string   "eventable"
+    t.index ["project_id"], name: "index_events_on_project_id"
+    t.index ["review_id"], name: "index_events_on_review_id"
+    t.index ["team_id"], name: "index_events_on_team_id"
+    t.index ["todo_id"], name: "index_events_on_todo_id"
+    t.index ["user_id"], name: "index_events_on_user_id"
   end
 
   create_table "projects", force: :cascade do |t|
@@ -41,6 +46,8 @@ ActiveRecord::Schema.define(version: 20170415010638) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer  "team_id"
+    t.index ["team_id"], name: "index_projects_on_team_id"
+    t.index ["user_id"], name: "index_projects_on_user_id"
   end
 
   create_table "reviews", force: :cascade do |t|
@@ -49,6 +56,8 @@ ActiveRecord::Schema.define(version: 20170415010638) do
     t.text     "content"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["todo_id"], name: "index_reviews_on_todo_id"
+    t.index ["user_id"], name: "index_reviews_on_user_id"
   end
 
   create_table "team_owners", force: :cascade do |t|
@@ -70,6 +79,7 @@ ActiveRecord::Schema.define(version: 20170415010638) do
     t.integer  "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_teams_on_user_id"
   end
 
   create_table "todos", force: :cascade do |t|

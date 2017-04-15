@@ -1,20 +1,37 @@
   <% @events.each do |event| %>
+  <% title = "" %>
   <h4><%= event.created_at.strftime('%y-%m-%d') %></h4>
   <%= event.created_at.strftime("%I:%M %p") %>,
+      <% if event.project.present? %>
     <h4 class="pull-right"> <%= event.project.title %> </h4>
+      <% else %>
+        <h4 class="pull-right">  <%= "此项目已被删除"%></h4>
+      <% end %>
   <%= link_to(event.user.email, "#") %>
   <%= event.action %> :
   <% case event.eventable %>
     <% when "todo" %>
+    <% if event.todo.present? %>
       <%= link_to(event.todo.title, team_project_todo_path(event.todo.project.team, event.todo.project, event.todo))%>
       <!-- <%= event.created_at.strftime('%y-%m-%d').to_s %> -->
+      <% else %>
+      <%= "此任务已被删除"%>
+      <% end %>
       <br>
     <% when "project" %>
+    <% if event.project.present? %>
     <%= link_to(event.project.title, team_project_path(event.project.team, event.project))%>
       <!-- <%= event.created_at.strftime('%y-%m-%d').to_s %> -->
+      <% else %>
+      <%= "此项目已被删除"%>
+      <% end %>
       <br>
     <% when "review" %>
+        <% if event.review.present? %>
     <%= link_to(event.review.todo.title, team_project_todo_path(event.review.todo.project.team, event.review.todo.project, event.review.todo))%>
       <!-- <%= event.created_at.strftime('%y-%m-%d').to_s %> -->
+      <% else %>
+      <%= "此评论已被删除"%>
+      <% end %>
   <% end %>
   <% end %>

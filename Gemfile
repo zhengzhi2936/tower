@@ -41,6 +41,7 @@ gem 'aasm'
 gem 'rails-controller-testing'
 gem 'momentjs-rails', '>= 2.9.0'
 gem 'bootstrap3-datetimepicker-rails', '~> 4.17', '>= 4.17.42'
+gem 'annotate'
 group :development, :test do
   gem 'rspec-rails'
   gem 'sqlite3'
@@ -49,6 +50,7 @@ group :development, :test do
 end
 
 group :development do
+  gem "better_errors"
   # Access an IRB console on exception pages or by using <%= console %> anywhere in the code.
   gem 'web-console', '>= 3.3.0'
   gem 'listen', '~> 3.0.5'
