@@ -15,7 +15,6 @@ class TodosController < ApplicationController
   def create
     @todo = Todo.new(todo_params)
     @todo.project = @project
-    @todo.team = @team
     @todo.user = current_user
     @event = Event.new
     if @todo.save
@@ -33,7 +32,6 @@ class TodosController < ApplicationController
   def update
     @event = Event.new
     @todo.project = @project
-    @todo.team = @team
     @todo.user = current_user
 
     if @todo.update(todo_params)
@@ -46,7 +44,6 @@ class TodosController < ApplicationController
 
   def destroy
     @todo.project = @project
-    @todo.team = @team
     @todo.user = current_user
     @event = Event.new
     @todo.destroy
@@ -56,7 +53,6 @@ class TodosController < ApplicationController
 
   def receive_todo
     @todo.project = @project
-    @todo.team = @team
     @todo.user = current_user
     @event = Event.new
     @todo.receive_todo!
@@ -66,7 +62,6 @@ class TodosController < ApplicationController
 
   def finish_todo
     @todo.project = @project
-    @todo.team = @team
     @todo.user = current_user
     @event = Event.new
     @todo.finish_todo!
@@ -77,7 +72,6 @@ class TodosController < ApplicationController
   def reopen_todo
     @todo.user = current_user
     @todo.project = @project
-    @todo.team = @team
     @event = Event.new
     @todo.reopen_todo!
     @event.reopen_event!(@todo)
@@ -86,7 +80,6 @@ class TodosController < ApplicationController
 
   def cancel_todo
     @todo.project = @project
-    @todo.team = @team
     @todo.user = current_user
     @event = Event.new
     @todo.cancel_todo!
@@ -97,7 +90,6 @@ class TodosController < ApplicationController
   def renew_todo
     @todo.user = current_user
     @todo.project = @project
-    @todo.team = @team
     @event = Event.new
     @todo.renew_todo!
     @event.cancel_event!(@todo)

@@ -6,7 +6,7 @@
   <%= event.action %> :
   <% case event.eventable %>
     <% when "todo" %>
-      <%= link_to(event.todo.title, team_project_todo_path(event.todo.team, event.todo.project, event.todo))%>
+      <%= link_to(event.todo.title, team_project_todo_path(event.todo.project.team, event.todo.project, event.todo))%>
       <!-- <%= event.created_at.strftime('%y-%m-%d').to_s %> -->
       <br>
     <% when "project" %>
@@ -14,7 +14,7 @@
       <!-- <%= event.created_at.strftime('%y-%m-%d').to_s %> -->
       <br>
     <% when "review" %>
-    <%= link_to(event.review.todo.title, team_project_todo_path(event.review.todo.team, event.review.todo.project, event.review.todo))%>
+    <%= link_to(event.review.todo.title, team_project_todo_path(event.review.todo.project.team, event.review.todo.project, event.review.todo))%>
       <!-- <%= event.created_at.strftime('%y-%m-%d').to_s %> -->
   <% end %>
   <% end %>

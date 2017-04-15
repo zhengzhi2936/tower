@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170414112144) do
+ActiveRecord::Schema.define(version: 20170415010638) do
 
   create_table "assignments", force: :cascade do |t|
     t.integer  "origin_executor_id"
@@ -49,8 +49,6 @@ ActiveRecord::Schema.define(version: 20170414112144) do
     t.text     "content"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer  "team_id"
-    t.integer  "project_id"
   end
 
   create_table "team_owners", force: :cascade do |t|
@@ -82,10 +80,11 @@ ActiveRecord::Schema.define(version: 20170414112144) do
     t.datetime "created_at",                           null: false
     t.datetime "updated_at",                           null: false
     t.string   "aasm_state",  default: "todo_created"
-    t.integer  "team_id"
     t.string   "recipient"
     t.datetime "deadline"
     t.index ["aasm_state"], name: "index_todos_on_aasm_state"
+    t.index ["project_id"], name: "index_todos_on_project_id"
+    t.index ["user_id"], name: "index_todos_on_user_id"
   end
 
   create_table "users", force: :cascade do |t|

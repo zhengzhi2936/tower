@@ -10,8 +10,6 @@ class ReviewsController < ApplicationController
   def create
     @review = Review.new(review_params)
     @event = Event.new
-    @review.team = @team
-    @review.project = @project
     @review.todo = @todo
     @review.user = current_user
     if @review.save!
@@ -27,8 +25,6 @@ class ReviewsController < ApplicationController
   end
 
   def update
-    @review.team = @team
-    @review.project = @project
     @event = Event.new
     @review.todo = @todo
     @review.user = current_user
@@ -41,8 +37,6 @@ class ReviewsController < ApplicationController
   end
 
   def destroy
-    @review.team = @team
-    @review.project = @project
     @event = Event.new
     @review.destroy
     # @event.destroy_review!(@review)

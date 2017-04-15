@@ -3,7 +3,6 @@ class Todo < ApplicationRecord
   belongs_to :project
   has_many :reviews
   has_many :events
-  belongs_to :team
   has_one :assignment, :dependent => :destroy
   include AASM
 

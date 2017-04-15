@@ -12,7 +12,7 @@ class Event < ApplicationRecord
     self.todo = todo
     self.user = todo.user
     self.project = todo.project
-    self.team = todo.team
+    self.team = todo.project.team
     self.save!
   end
   def update_event!(todo)
@@ -22,7 +22,7 @@ class Event < ApplicationRecord
     self.todo = todo
     self.user = todo.user
     self.project = todo.project
-    self.team = todo.team
+    self.team = todo.project.team
     self.save!
   end
   # def destroy_event!(todo)
@@ -43,7 +43,7 @@ class Event < ApplicationRecord
     self.user = todo.user
     self.todo = todo
     self.project = todo.project
-    self.team = todo.team
+    self.team = todo.project.team
     self.save!
   end
 
@@ -54,7 +54,7 @@ class Event < ApplicationRecord
     self.todo = todo
     self.user = todo.user
     self.project = todo.project
-    self.team = todo.team
+    self.team = todo.project.team
     self.save!
   end
 
@@ -65,7 +65,7 @@ class Event < ApplicationRecord
     self.eventable = "todo"
     self.user = todo.user
     self.project = todo.project
-    self.team = todo.team
+    self.team = todo.project.team
     self.save!
   end
 
@@ -76,7 +76,7 @@ class Event < ApplicationRecord
     self.user = todo.user
     self.todo = todo
     self.project = todo.project
-    self.team = todo.team
+    self.team = todo.project.team
     self.save!
   end
 
@@ -87,7 +87,7 @@ class Event < ApplicationRecord
     self.eventable = "todo"
     self.user = todo.user
     self.project = todo.project
-    self.team = todo.team
+    self.team = todo.project.team
     self.save!
   end
   def assign_origin_executor_event!(todo)
@@ -97,7 +97,7 @@ class Event < ApplicationRecord
     self.eventable = "todo"
     self.user = todo.user
     self.project = todo.project
-    self.team = todo.team
+    self.team = todo.project.team
     self.save!
   end
   def assign_new_executor_event!(todo)
@@ -107,7 +107,7 @@ class Event < ApplicationRecord
     self.eventable = "todo"
     self.user = todo.user
     self.project = todo.project
-    self.team = todo.team
+    self.team = todo.project.team
     self.save!
   end
 
@@ -116,9 +116,10 @@ class Event < ApplicationRecord
       self.content = review.todo.title
       self.eventable = "review"
       self.review = review
+      self.todo = review.todo
       self.user = review.user
-      self.project = review.project
-      self.team = review.team
+      self.project = review.todo.project
+      self.team = review.todo.project.team
       self.save!
     end
     def update_review!(review)
@@ -126,8 +127,9 @@ class Event < ApplicationRecord
       self.content = review.todo.title
       self.eventable = "review"
       self.review = review
-      self.project = review.project
-      self.team = review.team
+      self.todo = review.todo
+      self.project = review.todo.project
+      self.team = review.todo.project.team
       self.user = review.user
       self.save!
     end
