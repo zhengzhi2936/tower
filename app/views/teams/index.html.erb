@@ -17,23 +17,15 @@
           <td><%= team.id %></td>
           <td><%= link_to(team.name, team_path(team)) %></td>
           <td>
-            <% if current_user.is_owner_of?(team)%>
+
               <%= link_to("Edit", edit_team_path(team), class: "btn btn-sm btn-default")%>
               <%= link_to("Delete", team_path(team),    class: "btn btn-sm btn-default",
                           method: :delete, data: { confirm: "Are you sure?" } )%>
-            <% end %>
+
           </td>
 
           <td>
-            <span class="pull-right">
-              <% if current_user && current_user.is_member_of?(team) %>
-                <label class="label label-success"> 团队成员 </label>
-                  <%= link_to("退出团队", quit_team_path(team), method: :post, class: "btn btn-default") %>
-              <% else %>
-                <label class="label label-warning"> 不是团队成员 </label>
-                 <%= link_to("加入团队", join_team_path(team), method: :post, class: "btn btn-default") %>
-              <% end %>
-            </span>
+
               <%= link_to("动态", team_events_path(team), class: "btn btn-danger pull-right") %>
           </td>
         </tr>

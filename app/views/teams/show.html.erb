@@ -19,9 +19,13 @@
       <%= render :partial => "project_item", :collection => @projects, :as => :project %>
     </tbody>
   </table>
+  <% @team.team_permissions.each do |u| %>
+  <tr>
+    <td>
+      <td>
+        <%= u.user.email %>
+      </td>
+    </td>
 
-  <div> 团队成员:
-  <% @team.members.each do |user|%>
-  <%= user.email %>
-  <% end %>
-  </div>
+  </tr>
+<% end %>

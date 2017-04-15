@@ -20,4 +20,10 @@ class Project < ApplicationRecord
   belongs_to :user
   belongs_to :team
   has_many :todos
+
+  after_commit :assign_project_permission
+
+  def assign_project_permission
+    ProjectPermission.create([user_id: self.user.id, project_id: self.id, level: "owner"])
+  end
 end

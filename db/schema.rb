@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170415012811) do
+ActiveRecord::Schema.define(version: 20170415112828) do
 
   create_table "assignments", force: :cascade do |t|
     t.integer  "origin_executor_id"
@@ -40,6 +40,16 @@ ActiveRecord::Schema.define(version: 20170415012811) do
     t.index ["user_id"], name: "index_events_on_user_id"
   end
 
+  create_table "project_permissions", force: :cascade do |t|
+    t.integer  "user_id"
+    t.integer  "project_id"
+    t.string   "level"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["project_id"], name: "index_project_permissions_on_project_id"
+    t.index ["user_id"], name: "index_project_permissions_on_user_id"
+  end
+
   create_table "projects", force: :cascade do |t|
     t.string   "title"
     t.integer  "user_id"
@@ -65,6 +75,16 @@ ActiveRecord::Schema.define(version: 20170415012811) do
     t.integer  "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "team_permissions", force: :cascade do |t|
+    t.integer  "user_id"
+    t.integer  "team_id"
+    t.string   "level"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["team_id"], name: "index_team_permissions_on_team_id"
+    t.index ["user_id"], name: "index_team_permissions_on_user_id"
   end
 
   create_table "team_relationships", force: :cascade do |t|

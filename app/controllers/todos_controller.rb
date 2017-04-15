@@ -3,6 +3,9 @@ class TodosController < ApplicationController
   before_action :find_team_and_project
   before_action :find_todo, except: [:new, :create]
   before_action :find_assignment, :only => [:show, :edit]
+  before_action do
+    check_permission(params[:project_id])
+  end
   def show
     @reviews = @todo.reviews
   end

@@ -17,9 +17,10 @@ class Team < ApplicationRecord
   validates_presence_of :name
   has_many :projects
   belongs_to :user
-  has_many :team_relationships
-  has_many :members, through: :team_relationships, source: :user
-  has_many :team_owners
-  has_one :owner, through: :team_owners, source: :user
   has_many :events
+  has_many :team_permissions
+  after_commit :assion_team_permission
+  def assion_team_permission
+    TeamPermission.create([user_id: self.user.id, team_id: self.id, level: "owner"])
+  end
 end

@@ -1,7 +1,10 @@
 class ProjectsController < ApplicationController
   before_action :authenticate_user!
   before_action :find_team, only: [:new, :create, :show, :edit, :update, :destroy]
-    before_action :find_project, only: [:edit, :destroy]
+  before_action only: [:show, :edit, :update, :destroy] do
+    check_permission(params[:id])
+  end
+  before_action :find_project, only: [:edit, :destroy]
   def new
     @project = Project.new
   end

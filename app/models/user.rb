@@ -31,28 +31,33 @@ class User < ApplicationRecord
   has_many :projects
   has_many :teams
   has_many :todos
-  has_many :team_relationships
-  has_many :participated_teams, :through => :team_relationships, source: :team
-  has_many :team_owners
-  has_many :owned_teams, :through => :team_owners, source: :team
   has_many :events
-  def is_member_of?(team)
-    participated_teams.include?(team)
+  has_many :project_permissions
+  has_many :team_permissions
+
+  def is_owner?(project_id)
+    permission = self.project_permissions.find_by_project_id(project_id)
+    if permission.present? && permission.level == "owner"
+      true
+    else
+      false
+    end
+  end
+  def has_permission_to_access_to_team?(team_id)
+    team_permissions = self.team_permissions.find_by_team_id(team_id)
+    if team_permissions.present? and (team_permissions.level == "owner" or team_permissions.level == "member")
+      true
+    else
+      false
+    end
   end
 
-  def is_owner_of?(team)
-    owned_teams.include?(team)
-  end
-
-  def own!(team)
-    owned_teams << team
-  end
-
-  def join!(team)
-    participated_teams << team
-  end
-
-  def quit!(team)
-    participated_teams.delete(team)
+  def has_permission_to_operate_todo?(project_id)
+    permission = self.project_permissions.find_by_project_id(project_id)
+    if permission.present? && (permission.level == "owner" or permission.level == "member")
+      true
+    else
+      false
+    end
   end
 end

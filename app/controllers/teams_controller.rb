@@ -1,7 +1,6 @@
 class TeamsController < ApplicationController
   before_action :authenticate_user!
-  before_action :require_is_member_of_team, except: [:index, :new, :create, :join, :destroy, :edit]
-  before_action :require_is_admin_of_team, only: [:destroy, :edit, :update]
+  before_action :check_team_permission, :except => [:index, :new, :create]
   before_action :find_team, only: [:show, :edit, :update, :join, :quit, :destroy]
   def index
     @teams = Team.all
@@ -19,8 +18,6 @@ class TeamsController < ApplicationController
     @team = Team.new(team_params)
     @team.user = current_user
     if @team.save
-    current_user.own!(@team)
-    current_user.join!(@team)
       redirect_to "/"
     else
       render :new
@@ -66,16 +63,18 @@ class TeamsController < ApplicationController
   end
 private
 
+  def check_team_permission
+    unless current_user.has_permission_to_access_to_team?(params[:id])
+      flash[:alert] = "等等，你好像不是我们机组的"
+      redirect_to "/"
+    end
+  end
+
+
   def team_params
     params.require(:team).permit(:name)
   end
 
-  def require_is_member_of_team
-    @team = Team.all.find(params[:id])
-    if !current_user.is_member_of?(@team)
-      redirect_to "/", alert: "你不是团队成员"
-    end
-  end
 
   def require_is_admin_of_team
     @team = Team.all.find(params[:id])
