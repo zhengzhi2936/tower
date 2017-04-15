@@ -16,6 +16,7 @@
 #
 
 class Review < ApplicationRecord
+  validates_presence_of :content
   belongs_to :user
   belongs_to :todo, :optional => true
   has_many :events

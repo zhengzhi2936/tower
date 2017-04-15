@@ -14,6 +14,7 @@
 #
 
 class Team < ApplicationRecord
+  validates_presence_of :name
   has_many :projects
   belongs_to :user
   has_many :team_relationships

@@ -21,6 +21,7 @@
 #
 
 class Todo < ApplicationRecord
+  validates_presence_of :title, :description
   belongs_to :user
   belongs_to :project
   has_many :reviews
