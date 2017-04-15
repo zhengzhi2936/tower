@@ -9,6 +9,6 @@ class AddIndexToAllTheModel < ActiveRecord::Migration[5.0]
     add_index :projects, :team_id
     add_index :reviews, :user_id
     add_index :reviews, :todo_id
-    add_index :teams, :user_id                       
+    add_index :teams, :user_id
   end
 end

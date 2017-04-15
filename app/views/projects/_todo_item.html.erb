@@ -16,11 +16,11 @@
 <% end %>
 </td>
 <td>
-  <% if todo.assignment.present? and todo.assignment.origin_deadline.present? %>
-  <%= todo.assignment.origin_deadline.strftime("%Y年%-m月%d日") %>
-  <% else %>
   <% if todo.assignment.present? and todo.assignment.new_deadline.present? %>
   <%= todo.assignment.new_deadline.strftime("%Y年%-m月%d日") %>
+    <% else %>
+  <% if todo.assignment.present? and todo.assignment.origin_deadline.present? %>
+  <%= todo.assignment.origin_deadline.strftime("%Y年%-m月%d日") %>
   <% else %>
   <%= "没有截止日期" %>
 <% end %>
