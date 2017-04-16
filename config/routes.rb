@@ -18,8 +18,6 @@ Rails.application.routes.draw do
            post :reopen_todo
            post :cancel_todo
            post :renew_todo
-           patch :assign_people
-           patch :assign_time
          end
          resources :reviews
        end

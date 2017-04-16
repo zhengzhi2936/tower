@@ -4,7 +4,9 @@
       <%= project.title %>
         <% end %>
     </td>
+    <% if current_user && current_user.is_project_owner?(project)%>
     <td> <%= link_to("编辑", edit_team_project_path(project.team, project), class: "btn btn-sm btn-success")%>
     <%= link_to("删除", team_project_path(project.team, project), method: :delete, class: "btn btn-sm btn-danger", data: {confirm: "确定吗"})%></td>
+    <% end %>
     <td> <%= project.created_at%></td>
 </tr>

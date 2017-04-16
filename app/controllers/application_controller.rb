@@ -12,8 +12,8 @@ protected
 
   def check_permission(projecct_id)
     unless current_user.has_permission_to_operate_todo?(projecct_id)
-      flash[:alert] = "等等，你好像不是我们机组的"
-      redirect_to "/"
+      flash[:alert] = "你不是该项目成员，请先加入"
+      redirect_to :back
     end
   end
 end

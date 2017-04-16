@@ -35,7 +35,7 @@ class User < ApplicationRecord
   has_many :project_permissions
   has_many :team_permissions
 
-  def is_owner?(project_id)
+  def is_project_owner?(project_id)
     permission = self.project_permissions.find_by_project_id(project_id)
     if permission.present? && permission.level == "owner"
       true
@@ -43,6 +43,34 @@ class User < ApplicationRecord
       false
     end
   end
+
+  def is_project_member?(project_id)
+    permission = self.project_permissions.find_by_project_id(project_id)
+    if permission.present? && permission.level == "member"
+      true
+    else
+      false
+    end
+  end
+
+  def is_team_owner?(team_id)
+    permission = self.team_permissions.find_by_team_id(team_id)
+    if permission.present? && permission.level == "owner"
+      true
+    else
+      false
+    end
+  end
+
+  def is_team_member?(team_id)
+    permission = self.team_permissions.find_by_team_id(team_id)
+    if permission.present? && permission.level == "member"
+      true
+    else
+      false
+    end
+  end
+
   def has_permission_to_access_to_team?(team_id)
     team_permissions = self.team_permissions.find_by_team_id(team_id)
     if team_permissions.present? and (team_permissions.level == "owner" or team_permissions.level == "member")
