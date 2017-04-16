@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170415112828) do
+ActiveRecord::Schema.define(version: 20170416071456) do
 
   create_table "assignments", force: :cascade do |t|
     t.integer  "origin_executor_id"
@@ -70,13 +70,6 @@ ActiveRecord::Schema.define(version: 20170415112828) do
     t.index ["user_id"], name: "index_reviews_on_user_id"
   end
 
-  create_table "team_owners", force: :cascade do |t|
-    t.integer  "team_id"
-    t.integer  "user_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
   create_table "team_permissions", force: :cascade do |t|
     t.integer  "user_id"
     t.integer  "team_id"
@@ -85,13 +78,6 @@ ActiveRecord::Schema.define(version: 20170415112828) do
     t.datetime "updated_at", null: false
     t.index ["team_id"], name: "index_team_permissions_on_team_id"
     t.index ["user_id"], name: "index_team_permissions_on_user_id"
-  end
-
-  create_table "team_relationships", force: :cascade do |t|
-    t.integer  "team_id"
-    t.integer  "user_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
   end
 
   create_table "teams", force: :cascade do |t|
